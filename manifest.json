@@ -1,0 +1,57 @@
+{
+    "manifest_version": 3,
+    "name": "微信读书笔记助手",
+    "version": "0.1",
+    "description": "微信读书笔记助手,一款支持markdown格式的微信读书笔记助手",
+    "permissions": ["activeTab", "scripting", "storage"],
+    "web_accessible_resources": [{
+        "resources": [
+            "vditor/dist/index.min.js",
+            "vditor/dist/js/highlight.js/highlight.pack.js",
+            "vditor/dist/js/mermaid/mermaid.min.js",
+            "vditor/dist/js/lute/lute.min.js",
+            "scripts/vditor.js",
+
+
+            "vditor/dist/index.css",
+            "vditor/dist/js/highlight.js/styles/github.css",
+
+            "scripts/wei_note.html"
+
+        ],
+        "matches": ["*://weread.qq.com/*"]
+    }],
+    "content_scripts": [{
+        "matches": ["*://weread.qq.com/*"],
+        "css": [
+            "vditor/dist/index.css"
+        ],
+        "js": [
+            "vditor/dist/index.min.js",
+            "vditor/dist/js/lute/lute.min.js",
+            "scripts/wei_note.js",
+            "scripts/wei_note_style_adapter.js",
+            "scripts/vditor.js"
+        ]
+    }],
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    },
+    "action": {
+        "default_icon": {
+        "16": "images/icon-16.png",
+        "32": "images/icon-32.png",
+        "48": "images/icon-48.png",
+        "128": "images/icon-128.png"
+        }
+    },
+    "commands": {
+        "_execute_action": {
+        "suggested_key": {
+            "default": "Ctrl+B",
+            "mac": "Command+B"
+        }
+        }
+    }
+}

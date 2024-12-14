@@ -1,0 +1,89 @@
+body {
+    width: 50%; /* 左侧只占一半宽度 */
+  }
+  
+
+.readerTopBar {
+    /* 层级置为最底层 */
+    width: 50% !important;
+}
+
+.readerTopBar_left {
+    flex:none !important;
+}
+.vditor-toolbar__item {
+    margin-left: 10px !important;
+}
+
+.readerControls {
+
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    flex: auto !important;
+    bottom: auto !important;
+    margin-left: 0px !important;
+    position: unset !important;
+
+}
+
+.isNormalReader {
+    display: none !important;
+}
+
+
+.readerControls_item {
+    margin-top: 0px !important;
+}
+
+.readerTopBar {
+    max-width: 100% !important;
+}
+
+.font-panel-content-arrow {
+    display: none !important;
+}
+
+.reader-font-control-panel-wrapper .font-panel-content {
+    bottom: auto !important;
+}
+
+.wei-note-iframe-none {
+    display: none !important;
+}
+
+
+
+
+
+.wei-note {
+    height: 100%;
+    right: 0 !important;
+    top: 0 !important;
+    width: 100%;
+  
+}
+
+.wei-note-content .readerTopBar_inner {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: inherit !important;
+    color: inherit !important;
+}
+
+.wei-note-content  {
+    height: 100% !important;
+    outline: none;
+}
+
+
+
+
+
+
+
+
+
+
