@@ -74,8 +74,7 @@ async function openNote(tab) {
     function: () => {
       console.log(`打开笔记面板`);
       try {
-        const notePanel = createNotePanel();
-        adapterStyle(notePanel);
+        initWeiNote();
 
       } catch (error) {
         // 如果发生错误，确保清理已插入的CSS

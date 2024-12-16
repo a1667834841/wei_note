@@ -33,47 +33,23 @@ function createNotePanel() {
 
     // 等待iframe加载完成后发送消息初始化Vditor
     iframe.onload = () => {
-        iframe.contentWindow.postMessage({
-            type: 'loadVditor'
-        }, 'https://weread.qq.com');
+        // 监听主题变化
+        observeThemeChanges();
     };
 
     return iframe;
 }
 
-// 检查是否存在横向阅读按钮并点击
-function checkHorizontalReader() {
-    const horizontalReader = document.querySelector('.readerControls_item.isHorizontalReader');
-    if (horizontalReader) {
-        horizontalReader.click();
-    }
-}
 
 // 初始化函数
 function initWeiNote() {
-    // 页面加载完成后执行
-    document.addEventListener('DOMContentLoaded', createNotePanel);
+    
+      // 创建笔记面板
+      createNotePanel();
 
-    // 监听页面变化，确保在动态加载内容时也能正确显示
-    if (!window.weiNoteObserver) {
-        window.weiNoteObserver = new MutationObserver((mutations) => {
-            for (const mutation of mutations) {
-                if (mutation.type === 'childList') {
-                    // 创建笔记面板
-                    createNotePanel();
+      // 适配样式
+      adapterStyle();
 
-                    // 适配样式
-                    adapterStyle();
-                }
-            }
-        });
-
-        // 开始观察页面变化
-        window.weiNoteObserver.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-    }
 
     // 标记已初始化
     window.weiNoteInitialized = true;
@@ -91,10 +67,44 @@ function closeNotePanel() {
     if (weiNote) {
         // 添加 display: none
         weiNote.style.display = 'none';
+        // 移除iframe
+        weiNote.remove();
     }
 
     // 移除全局变量
     delete window.weiNoteInitialized;
     delete window.weiNoteObserver;
 }
+
+// 监听主题变化
+function observeThemeChanges() {
+    const readerControlsItems = document.querySelectorAll('.readerControls_item');
+
+    if (readerControlsItems.length == 0) {
+        return;
+    }
+
+    let readerControlsThemeItem = readerControlsItems[readerControlsItems.length - 1];
+
+    if (!readerControlsThemeItem) {
+        return;
+    }
+
+    // 默认主题
+    chrome.runtime.sendMessage({
+        type: 'themeChange',
+        isDark: !readerControlsThemeItem.className.includes('dark')
+    });
+
+    
+    readerControlsThemeItem.addEventListener('click', () => {
+        const isDark = readerControlsThemeItem.className.includes('dark');
+        chrome.runtime.sendMessage({
+            type: 'themeChange',
+            isDark: !isDark
+        });
+    });
+}
+
+
 
